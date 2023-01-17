@@ -23,4 +23,6 @@ ring-backcolor: The color of the background line.
 ring-fontsize: Size of the font inside the inner content. In pixels.
 ring-fontcolor: Color of the font inside the inner content.
 ring-percent: You may set the initial percentage fill here, however this is mostly used for the dynamic changes.
-Colors can be specified in any format that CSS permits
+Colors can be specified in any format that CSS permits To change the inner content of the ring, use this call:
+ringUI.changeContent(divbox, string of text or html);
+You may use any HTML code in the content part. The parameter divbox denotes the div of the ring_ui class
