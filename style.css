@@ -1,0 +1,43 @@
+@font-face
+            {
+                font-family: 'OpenSans';
+                src: url('OpenSans-Regular.ttf') format('truetype');
+            }  
+
+            html, body {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                height: 100%;
+                position: relative;
+                font-family: 'OpenSans';
+                -webkit-font-smoothing: antialiased;
+
+                background-color: #555;
+                }
+
+            .ring_ui
+            {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            }
+
+            .ring_ui *
+            {
+                position: absolute;
+            }
+
+            .ring_ui-circle
+            {
+                transition: 200ms all;
+                transform: rotate(-90deg);
+                transform-origin: 50% 50%;
+            }
+
+            .ring_ui-content
+            {
+
+            }

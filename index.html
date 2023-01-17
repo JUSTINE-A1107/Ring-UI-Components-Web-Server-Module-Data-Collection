@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' crossorigin='anonymous'></script>
+        <script src='ringui.js'></script>
+        <link rel='stylesheet' type='text/css' href='style.css'>
+    </head>
+    <body>
+        <div style='display: flex; align-items: center;'>
+
+            <div id='pone' class='ring_ui' ring-size='300' ring-thickness='14' ring-frontcolor='#6F6' 
+            ring-backcolor='#222' ring-fontsize='54' ring-fontcolor='#6F6' ring-percent='0' > &nbsp; 33%</div>
+
+            <div id='defaultring' class='ring_ui'></div>
+
+            <div id='orangeone' class='ring_ui' ring-size='240' ring-thickness='8' ring-frontcolor='orange' 
+            ring-backcolor='#444' ring-fontsize='64' ring-fontcolor='orange' ring-percent='33' > &nbsp; 33%</div>
+
+            <div id='thickone' class='ring_ui' ring-size='200' ring-thickness='24' ring-frontcolor='#40e0d0' 
+            ring-backcolor='#444' ring-fontsize='52' ring-fontcolor='#FF5' ring-percent='1' >1</div>
+
+            <div id='dangerone' class='ring_ui' ring-size='420' ring-thickness='5' ring-frontcolor='red' 
+            ring-backcolor='#222' ring-fontsize='80' ring-fontcolor='black' ring-percent='0' ></div>
+
+            <div>
+                <div id='whity' class='ring_ui' ring-size='100' ring-thickness='8' ring-frontcolor='#eee' 
+                ring-backcolor='transparent' ring-fontsize='1' ring-fontcolor='transparent'  ring-percent='66' ></div>
+                <div id='whitytext' style='color: white'>Progress</div>
+            </div>
+        </div>
+        
+
+        <div style='display: flex; align-items: center; margin-top: 30px; '>
+            <div>
+                <div id='time-hr-ring' class='ring_ui' ring-size='220' ring-thickness='8' ring-frontcolor='#3396FF' 
+                ring-backcolor='#444' ring-fontsize='64' ring-fontcolor='#3396FF' ring-percent='0' >55</div>
+                <div id='time-hr-text' style='color: white; font-size: 40px; text-align: center'>Hours</div>
+            </div>
+            <div>
+                <div id='time-min-ring' class='ring_ui' ring-size='220' ring-thickness='8' ring-frontcolor='#3396FF' 
+                ring-backcolor='#444' ring-fontsize='64' ring-fontcolor='#3396FF' ring-percent='0' >17</div>
+                <div id='time-min-text' style='color: white; font-size: 40px; text-align: center'>Minutes</div>
+            </div>
+            <div>
+                <div id='time-sec-ring' class='ring_ui' ring-size='220' ring-thickness='8' ring-frontcolor='#3396FF' 
+                ring-backcolor='#444' ring-fontsize='64' ring-fontcolor='#3396FF' ring-percent='0' >34</div>
+                <div id='time-sec-text' style='color: white; font-size: 40px; text-align: center'>Seconds</div>
+            </div>
+        </div>
+        <script>
+
+
+        window.setInterval(function(){
+            ringUI.changePercent($('#defaultring'), Math.floor((Math.random() * 100) + 1));
+        }, 800);
+
+        window.setInterval(function(){
+            var now = new Date(Date.now());
+            ringUI.changeContent($('#time-hr-ring'), now.getHours());
+            ringUI.changePercent($('#time-hr-ring'), parseInt((now.getHours()/60) * 100) );
+            ringUI.changeContent($('#time-min-ring'), now.getMinutes());
+            ringUI.changePercent($('#time-min-ring'), parseInt((now.getMinutes()/60) * 100) );
+            ringUI.changeContent($('#time-sec-ring'), now.getSeconds());
+            ringUI.changePercent($('#time-sec-ring'), parseInt((now.getSeconds()/60) * 100) );
+            
+        }, 480);
+
+        window.setInterval(function(){
+
+            let witem =  $('#whity');
+            let wcurP = parseInt(witem.attr('percent'));
+            wcurP+=4;
+            if (wcurP > 100) wcurP-=100;
+            ringUI.changePercent(witem, wcurP);
+            if (wcurP < 10) wcurP = "0" + wcurP;
+            $('#whitytext').html('Progress: ' + wcurP + '%');
+
+            let fitem =  $( '#orangeone' );
+            let fcurP = parseInt(fitem.attr('percent'));
+            fcurP++;
+            if (fcurP > 100) fcurP-=100;
+            ringUI.changePercent(fitem, fcurP);
+            ringUI.changeContent(fitem, fcurP);
+            
+        }, 100);
+
+        window.setInterval(function(){
+            let fitem =  $( '#pone' );
+            let fcurP = parseInt(fitem.attr('percent'));
+            fcurP++;
+            if (fcurP > 100) fcurP-=100;
+            ringUI.changePercent(fitem, fcurP);
+            ringUI.changeContent(fitem,  fcurP + "%");
+
+        }, 220);
+
+        window.setInterval(function(){
+            let titem =  $( '#thickone' );
+            let tcurP = parseInt(titem.attr('percent'));
+            tcurP--;
+            if (tcurP < 0) tcurP+=100;
+            ringUI.changePercent(titem, tcurP);
+            ringUI.changeContent(titem, tcurP);
+        }, 140);
+
+        window.setInterval(function(){
+            let ditem =  $( '#dangerone' );
+            let dcurP = parseInt(ditem.attr('percent'));
+            dcurP++;
+            if (dcurP > 100) dcurP-=100;
+            ringUI.changePercent(ditem, dcurP);
+            let msg = 'Default';
+            if (dcurP > 0 && dcurP <= 20) msg = 'Nominal';
+            if (dcurP > 20 && dcurP <= 40) msg = 'Active';
+            if (dcurP > 40 && dcurP <= 60) msg = 'Busy';
+            if (dcurP > 60 && dcurP <= 80) msg = 'High';
+            if (dcurP > 80 && dcurP <= 100) msg = 'DANGER';
+            ringUI.changeContent(ditem, msg);
+        }, 40);
+
+        </script>
+    </body>
+</html>
